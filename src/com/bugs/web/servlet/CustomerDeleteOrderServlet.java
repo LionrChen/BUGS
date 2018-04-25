@@ -55,6 +55,11 @@ public class CustomerDeleteOrderServlet extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}else if (action.equals("batch")) {
+			String ids =  request.getParameter("ids");
+			//ids处理成数组 1
+			String[] idArray= ids.split(",");
+			//
 		}
 	}
 

@@ -29,13 +29,17 @@ $(function(){
 		var urlString = 'customerDeleteOrderServlet?action=batch';
 		var theFirst = true;
 		$(".select").each(function(){
-			if(theFirst){
-				urlString += "id="+$(this).val();
-				theFirst = false;
-			}else{
-				urlString += "&id="+$(this).val();
-			}		
+			if($(this).is(':checked')){
+				if(theFirst){
+					urlString += "ids="+$(this).val();
+					theFirst = false;
+				}else{
+					urlString += ",id="+$(this).val();	
+				}
+						
+			}
+				
 		})
-		console.log(urlString);
+		window.location.href=urlString;
 	});
 });

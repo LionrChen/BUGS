@@ -52,7 +52,7 @@ List<order> paidOrders = (List<order>)session.getAttribute("paidOrders");
 					<%} %>
 					</div>
 					<div class="stateinfo">
-						<a href="myorder.jsp">我的订单</a>
+						<a href="viewMyordersServlet">我的订单</a>
 					</div>
 					<div class="stateinfo">
 						<a href="importantpeople.jsp">书城会员</a>
@@ -115,7 +115,9 @@ List<order> paidOrders = (List<order>)session.getAttribute("paidOrders");
 								      	<%}%>
 								      </td>
 								      
-								      <td><a class="deleteLink" href="customerDeleteOrderServlet?action=deid&orderId=<%=toBePaidOrders.get(i).id %>">删除</a></td>    
+								      <td>
+								        <a class="deleteLink" href="customerDeleteOrderServlet?action=deid&orderId=<%=toBePaidOrders.get(i).id %>">删除</a>
+								      </td>    
 							    	</tr>
 							    <%} %>
 							  </tbody>
@@ -129,14 +131,26 @@ List<order> paidOrders = (List<order>)session.getAttribute("paidOrders");
 							  <tbody>
 							  	<thead>
 								    <tr>
-								      <th scope="col"></th>
+								      <tr>
+								      <th scope="col" style="width:5rem;"></th>
 								      <th scope="col">订单号</th>
 								      <th scope="col">商品</th>
 								      <th scope="col">数量</th>
 								      <th scope="col">合计</th>
 								      <th scope="col">是否支付</th>
 								      <th scope="col">地址</th>
-								      <th scope="col">操作</th>
+								      <th scope="col" style="width:5rem;">操作</th>
+								    </tr>
+								    <tr>
+								      <th scope="col"><input type="checkbox"  class="selectall" id="selectall"><label for="selectall">全选</label></th>
+								      <th scope="col" ></th>
+								      <th scope="col" ></th>
+								      <th scope="col" ></th>
+								      <th scope="col" ></th>
+								      <th scope="col"></th>
+								      <th scope="col"></th>
+								      <th scope="col"><a href="javascript:;"  id="deletechecked" >删除</a></th>
+								    </tr>
 								    </tr>
 								 </thead>
 							     <% for(int i=0;i<paidOrders.size();i++){ %>
@@ -160,7 +174,7 @@ List<order> paidOrders = (List<order>)session.getAttribute("paidOrders");
 								      		<%=paidOrders.get(i).position %>
 								      	<%}%>
 								      </td>
-								      <td><a class="deleteLink" href="customerDeleteOrderServlet?orderId=<%=paidOrders.get(i).id %>"></a></td>
+								      <td><a class="deleteLink" href="customerDeleteOrderServlet?orderId=<%=paidOrders.get(i).id %>">删除</a></td>
 							    </tr>
 							   <%} %>
 							  </tbody>

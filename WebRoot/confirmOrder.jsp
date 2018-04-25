@@ -53,7 +53,7 @@ Book toBuyBook = (Book)session.getAttribute("toBuyBook");
 					<%} %>
 					</div>
 					<div class="stateinfo">
-						<a href="myorder.jsp">我的订单</a>
+						<a href="viewMyordersServlet">我的订单</a>
 					</div>
 					<div class="stateinfo">
 						<a href="importantpeople.jsp">书城会员</a>
