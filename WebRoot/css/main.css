@@ -1,0 +1,165 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family:Arial,"微软雅黑","宋体";
+    font-size: 100%;
+    line-height: 1.4;
+    overflow:hidden;
+}
+h1, h2, h3, h4, h5, h6, p {
+	margin-top: 20px;	 /* 删除上边距可以解决边距会超出其包含的 div 的问题。剩余的下边距可以使 div 与后面的任何元素保持一定距离。 */
+	padding-right: 15px;
+	padding-left: 15px; /* 向 div 内的元素侧边（而不是 div 自身）添加填充可避免使用任何方框模型数学。此外，也可将具有侧边填充的嵌套 div 用作替代方法。 */
+}
+a:link {
+	color: #42413C;
+	text-decoration: underline; 
+}
+a:visited {
+	color: #6E6C64;
+	text-decoration: underline;
+}
+a:hover, a:active, a:focus { 
+	text-decoration: none;
+}
+.header{
+	height:100px;
+	background-color:#F0F0F0;
+}
+
+.footer{
+	background-color:#F0F0F0;
+}
+
+.content{
+    height:auto;
+    width:auto;
+}
+.remind{
+    width:500px;
+    margin:300px auto;
+}
+.img{
+    float:left;
+}
+.remind_font{
+    float:left;
+}
+.remind_font h2{
+    color: red;
+}
+
+
+.login_logo{
+	padding-top:10px;
+	padding-left:20px;
+	border:1px ;
+}
+.loginbox .loginbox-title{
+	
+	height:70px;
+	border-radius:3px 3px 0 0;
+}
+
+.loginbox .loginbox-title{
+	margin-top:60px;
+	color:#666666;
+    padding:0 20px; 
+	line-height:50px;
+	font-size:16px;
+	text-align:center;
+}
+.loginbox{
+	width:500px;
+	height:600px;
+	margin:50px auto 100px auto;
+	background-color:#ffffff;
+	box-shadow:0px 0px 5px 0 #ccc;
+	border:#D8D8D8 1px solid;
+	border-radius:4px;
+}
+.login-content{
+	margin:0px auto;
+}
+.login-error{
+	font-size:16px;
+	color:red;
+}
+/*<div class="row">
+      <label class="field">Email</label>
+      <input type="text" class="input-text-user input-click" name="username" id="username">
+  </div>
+  <div class="row">
+      <label class="field">密&nbsp;&nbsp;码</label>
+      <input type="password" class="input-text-password input-click" name="adminPassword" id="password">
+  </div>
+  <div class="row btnArea">
+      <input type="submit" class="lobox"value="登录" id="logsub"/>
+  </div> 
+  <div class="row tips">
+	     <a href="forget.jsp" class="link">忘记密码</a>
+	 </div>
+  
+  */	
+                    
+.row{
+	padding:20px 45px;
+}
+.input-text-user {
+	font-size:16px;
+	border:#F0F0F0 1px solid;
+	border-radius:3px;
+	width:290px;
+	padding-left:10px;
+	height:32px;
+	line-height:32px;
+}
+.input-text-user:focus{
+	box-shadow:0px 0px 5px 0 #0000ff;
+}
+.input-text-password{
+	font-size:16px;
+	border:#F0F0F0 1px solid;
+	border-radius:3px;
+	width:290px;
+	padding-left:10px;
+	padding-right:10px;
+	margin:2px;
+	height:32px;
+	line-height:32px;
+}
+.input-text-password:focus{
+	box-shadow:0px 0px 5px 0 #0000ff;
+	
+}
+.btnArea{
+	padding:10px;
+	margin:15px auto 5px 50px;
+}
+.field{
+	margin-right:10px;
+	pedding-right:10px;
+}
+.lobox{
+	text-align:center;
+	margin:30px 30px 30px 45px;
+	width:290px;
+	height:35px;
+	line-height:35px;
+	background-color:#F0F0F0;
+	border:none;
+	border-radius:3px;
+}
+.lobox:hover{
+	background-color:#ccc;
+	box-shadow:0px 0px 5px 0 #ccc;
+}
+.row.tips{
+	text-align:center;
+}
+.go-regist{
+	text-align:center;
+	padding:20px 10px;
+	font-color:#FFF;
+}

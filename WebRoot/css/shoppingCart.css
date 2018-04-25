@@ -1,0 +1,15 @@
+@CHARSET "UTF-8";
+.card-body{
+	padding: 0;
+	border-bottom: 1px solid #007BFF;
+}
+.card-body h5{
+	font-size: 1.0rem;
+	color: #FFFFFF;
+	height: 3rem;
+	line-height: 3rem;
+	padding-left: 2rem;
+}
+.card-body h5 img{
+	margin-right: .5rem;
+}
