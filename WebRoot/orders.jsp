@@ -30,6 +30,7 @@ List<order> paidOrders = (List<order>)session.getAttribute("paidOrders");
 	<meta http-equiv="description" content="This is my page">
 	<link href="js/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/header.css" rel="stylesheet">
+	
 
   </head>
   
@@ -72,19 +73,29 @@ List<order> paidOrders = (List<order>)session.getAttribute("paidOrders");
 							  <tbody>
 							  	<thead>
 								    <tr>
-								      <th scope="col"></th>
+								      <th scope="col" style="width:5rem;"></th>
 								      <th scope="col">订单号</th>
 								      <th scope="col">商品</th>
 								      <th scope="col">数量</th>
 								      <th scope="col">合计</th>
 								      <th scope="col">是否支付</th>
 								      <th scope="col">地址</th>
-								      <th scope="col">操作</th>
+								      <th scope="col" style="width:5rem;">操作</th>
+								    </tr>
+								    <tr>
+								      <th scope="col"><input type="checkbox"  class="selectall" id="selectall"><label for="selectall">全选</label></th>
+								      <th scope="col" ></th>
+								      <th scope="col" ></th>
+								      <th scope="col" ></th>
+								      <th scope="col" ></th>
+								      <th scope="col"></th>
+								      <th scope="col"></th>
+								      <th scope="col"><a href="javascript:;"  id="deletechecked" >删除</a></th>
 								    </tr>
 								 </thead>
 							    <% for(int i=0;i<toBePaidOrders.size();i++){ %>
 							    <tr>
-							          <td><input type="checkbox"></td>
+							          <td><input type="checkbox"  class="select" value="<%=toBePaidOrders.get(i).id %>"></td>
 								      <td scope="row"><%=toBePaidOrders.get(i).ordernumber %></td>
 								      <td><p><%=toBePaidOrderBooks.get(i).name %></p><img src="<%=toBePaidOrderBooks.get(i).imgurl %>" width="100px" /></td>
 								      <td><%=toBePaidOrders.get(i).num %></td>
@@ -104,7 +115,7 @@ List<order> paidOrders = (List<order>)session.getAttribute("paidOrders");
 								      	<%}%>
 								      </td>
 								      
-								      <td><a class="deleteLink" href="/customerDeleteOrderServlet?orderId=${paidOrders.get(i).id }"></a></td>    
+								      <td><a class="deleteLink" href="customerDeleteOrderServlet?action=deid&orderId=<%=toBePaidOrders.get(i).id %>">删除</a></td>    
 							    	</tr>
 							    <%} %>
 							  </tbody>
@@ -130,7 +141,7 @@ List<order> paidOrders = (List<order>)session.getAttribute("paidOrders");
 								 </thead>
 							     <% for(int i=0;i<paidOrders.size();i++){ %>
 							    	<tr>
-							    	  <td><input type="checkbox" class="select"></td>
+							    	  <td><input type="checkbox"  class="select" value="<%=paidOrders.get(i).id %>"></td>
 								      <td scope="row"><%=paidOrders.get(i).ordernumber %></td>
 								      <td><p><%=paidOrderBooks.get(i).name %></p><img src="<%=paidOrderBooks.get(i).imgurl %>" width="100px" /></td>
 								      <td><%=paidOrders.get(i).num %></td>
@@ -149,7 +160,7 @@ List<order> paidOrders = (List<order>)session.getAttribute("paidOrders");
 								      		<%=paidOrders.get(i).position %>
 								      	<%}%>
 								      </td>
-								      <td><a class="deleteLink" href="/customerDeleteOrderServlet?orderId=${paidOrders.get(i).id }"></a></td>
+								      <td><a class="deleteLink" href="customerDeleteOrderServlet?orderId=<%=paidOrders.get(i).id %>"></a></td>
 							    </tr>
 							   <%} %>
 							  </tbody>
@@ -164,4 +175,5 @@ List<order> paidOrders = (List<order>)session.getAttribute("paidOrders");
     <script src="js/bootstrap/js/popper.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap/js/bootstrap.js"></script>
+    <script src="js/selectmore.js"></script>
 </html>

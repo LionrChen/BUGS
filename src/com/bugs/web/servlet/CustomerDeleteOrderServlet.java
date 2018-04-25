@@ -2,11 +2,15 @@ package com.bugs.web.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.bugs.domain.order;
+import com.bugs.service.OrderService;
 
 public class CustomerDeleteOrderServlet extends HttpServlet {
 
@@ -38,7 +42,20 @@ public class CustomerDeleteOrderServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		
+		String action = request.getParameter("action");
+		if (action.equals("deid")) {
+			int orderId = Integer.parseInt(request.getParameter("orderId"));
+			OrderService orderService = new OrderService();
+			order order = new order();
+			order.setId(orderId);
+			try {
+				orderService.DeleteOrderItem(order);
+				response.sendRedirect("viewMyOrdersServlet");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 	/**
