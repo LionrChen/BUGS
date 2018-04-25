@@ -63,7 +63,7 @@ public class OrderDao {
 		QueryRunner queryRunner = new QueryRunner(DBUtils.getDataSource());
 		String sql="update neworder set ordernumber=?,userid=?,bookid=?,num=?,payment=?,paymentstate=?,telephone=?,position=? where id=?";
 		int rowCount = queryRunner.update(sql,order.getOrdernumber(),order.getUserid(),order.getBookid(),order.getNum(),order.getPayment(),
-				order.getPaymentState(),order.getTelephone(),order.getId(),order.getPosition());
+				order.getPaymentState(),order.getTelephone(),order.getPosition(),order.getId());
 		return rowCount;
 	}
 	public int[] DeleteBybatch(String[] ids) throws SQLException {

@@ -13,7 +13,7 @@ if(session.getAttribute("customer")==null){
 	login=true;
 }
 List<Address> addresses = (List<Address>)session.getAttribute("addresses");
-order newOrder = (order)session.getAttribute("newOrder");
+order order = (order)session.getAttribute("newOrder");
 Book toBuyBook = (Book)session.getAttribute("toBuyBook");
 %>
 
@@ -53,7 +53,7 @@ Book toBuyBook = (Book)session.getAttribute("toBuyBook");
 					<%} %>
 					</div>
 					<div class="stateinfo">
-						<a href="viewMyordersServlet">我的订单</a>
+						<a href="viewMyOrdersServlet">我的订单</a>
 					</div>
 					<div class="stateinfo">
 						<a href="importantpeople.jsp">书城会员</a>
@@ -73,8 +73,8 @@ Book toBuyBook = (Book)session.getAttribute("toBuyBook");
 						<img src="${toBuyBook.imgurl }" />
 						<p>${toBuyBook.name }</p>
 						<p>价格:<span>${toBuyBook.price }</span>￥</p>
-						<p>购买数量:<span>${newOrder.num }</span></p>
-						<p>总价:<span>${newOrder.payment }</span>￥</p>
+						<p>购买数量:<span>${toPaymentOrder.num }</span></p>
+						<p>总价:<span>${toPaymentOrder.payment }</span>￥</p>
 					</div>
 				</div>
 				<div class="submitOrder">
@@ -91,8 +91,8 @@ Book toBuyBook = (Book)session.getAttribute("toBuyBook");
 							</div>
 						</p:forEach>
 						
-						<input value="${newOrder.ordernumber }" style="display: none;" name="ordernumber"/>
-						<p>共需支付:<span>${newOrder.payment }</span>￥</p>
+						<input value="${toPaymentOrder.ordernumber }" style="display: none;" name="ordernumber"/>
+						<p>共需支付:<span>${toPaymentOrder.payment }</span>￥</p>
 						<p>支付方式:</p>
 						<p>
 							<label for="payfun">钱包支付</label>

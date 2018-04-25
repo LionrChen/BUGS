@@ -72,7 +72,7 @@ public class DirectPurchaseServlet extends HttpServlet {
 				
 				order newOrder = orderService.QueryOrderItemByOrderNumber(order.ordernumber);
 				
-				request.getSession().setAttribute("newOrder", newOrder);
+				request.getSession().setAttribute("toPaymentOrder", newOrder);
 				request.getSession().setAttribute("addresses", addresses);
 				request.getSession().setAttribute("toBuyBook", toBuyBook);
 				response.sendRedirect("confirmOrder.jsp");

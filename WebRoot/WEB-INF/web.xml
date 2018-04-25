@@ -227,6 +227,18 @@
     <servlet-name>CustomerDeleteOrderServlet</servlet-name>
     <servlet-class>com.bugs.web.servlet.CustomerDeleteOrderServlet</servlet-class>
   </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>ContinueBuyServlet</servlet-name>
+    <servlet-class>com.bugs.web.servlet.ContinueBuyServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>GetCartInfoServlet</servlet-name>
+    <servlet-class>com.bugs.web.servlet.GetCartInfoServlet</servlet-class>
+  </servlet>
 
 
 
@@ -262,15 +274,23 @@
 
 
 
-  <!-- <filter>
+
+
+  <filter>
   <filter-name>encodingFilter</filter-name>
   <filter-class>com.bugs.filter.EncodingFilter</filter-class>
-  </filter> -->
+  </filter>
   
   <filter>
   <filter-name>userFilter</filter-name>
   <filter-class>com.bugs.filter.UserFilter</filter-class>
   </filter>
+  
+  <filter>
+  <filter-name>customerFilter</filter-name>
+  <filter-class>com.bugs.filter.CustomerFilter</filter-class>
+  </filter>
+  
 
   <servlet-mapping>
     <servlet-name>CheckImgServlet</servlet-name>
@@ -420,15 +440,36 @@
     <servlet-name>CustomerDeleteOrderServlet</servlet-name>
     <url-pattern>/customerDeleteOrderServlet</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ContinueBuyServlet</servlet-name>
+    <url-pattern>/continueBuyServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetCartInfoServlet</servlet-name>
+    <url-pattern>/getCartInfoServlet</url-pattern>
+  </servlet-mapping>
   
   
-  <!-- <filter-mapping>
+  <filter-mapping>
   <filter-name>encodingFilter</filter-name>
   <url-pattern>/*</url-pattern>
-  </filter-mapping> -->
+  </filter-mapping>
   <filter-mapping>
   <filter-name>userFilter</filter-name>
   <url-pattern>/home/*</url-pattern>
+  </filter-mapping>
+  
+  
+  <filter-mapping>
+  <filter-name>customerFilter</filter-name>
+  <url-pattern>/addBookToCartServlet</url-pattern>
+  <url-pattern>/bookDetailServlet</url-pattern>
+  <url-pattern>/confirmPaymentServlet</url-pattern>
+  <url-pattern>/continueBuyServlet</url-pattern>
+  <url-pattern>/customerDeleteOrderServlet</url-pattern>
+  <url-pattern>/customerDeleteShoppingCartItemServlet</url-pattern>
+  <url-pattern>/customerInfoServlet</url-pattern>
+  <url-pattern>/viewMyOrdersServlet</url-pattern>
   </filter-mapping>
   	
   <welcome-file-list>

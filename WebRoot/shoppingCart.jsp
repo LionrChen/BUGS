@@ -51,7 +51,7 @@ List<Book> books = (List<Book>)session.getAttribute("books");
 					<%} %>
 					</div>
 					<div class="stateinfo">
-						<a href="viewMyordersServlet">我的订单</a>
+						<a href="viewMyOrdersServlet">我的订单</a>
 					</div>
 					<div class="stateinfo">
 						<a href="importantpeople.jsp">书城会员</a>

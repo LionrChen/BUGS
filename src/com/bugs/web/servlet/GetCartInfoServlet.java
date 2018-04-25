@@ -3,21 +3,24 @@ package com.bugs.web.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.bugs.domain.order;
-import com.bugs.service.OrderService;
+import com.bugs.domain.Customer;
+import com.bugs.domain.ShoppingCart;
+import com.bugs.service.BookService;
+import com.bugs.service.ShoppingCartService;
 
-public class CustomerDeleteOrderServlet extends HttpServlet {
+public class GetCartInfoServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public CustomerDeleteOrderServlet() {
+	public GetCartInfoServlet() {
 		super();
 	}
 
@@ -42,33 +45,39 @@ public class CustomerDeleteOrderServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String action = request.getParameter("action");
-		if (action.equals("deid")) {
-			int orderId = Integer.parseInt(request.getParameter("orderId"));
-			OrderService orderService = new OrderService();
-			order order = new order();
-			order.setId(orderId);
-			try {
-				orderService.DeleteOrderItem(order);
-				response.sendRedirect("viewMyOrdersServlet");
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}else if (action.equals("batch")) {
-			String ids =  request.getParameter("ids");
-			String[] idArray= ids.split(",");
-			OrderService orderService = new OrderService();
-			//
-			try {
-				orderService.DeleteByBatchItem(idArray);
-				response.sendRedirect("viewMyOrdersServlet");
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		PrintWriter out = response.getWriter();
+		
+		int cartItemsNum = 0;	
+		double cartItemsPayment = 0;
+		String responseText = "0,0";
 
+		Customer customer = (Customer)request.getSession().getAttribute("customer");
+		
+		if (customer == null) {
+			out.print(responseText);
+		}else {
+			ShoppingCartService shoppingCartService = new ShoppingCartService();
+			BookService bookService = new BookService();
+			
+			try {
+				List<ShoppingCart> shoppingCarts = shoppingCartService.QueryAllShoppingCartItemByCustomerId(customer.getId());
+				cartItemsNum = shoppingCarts.size();
+				
+				for (ShoppingCart shoppingCart : shoppingCarts) {
+					cartItemsPayment += bookService.queryBookById(shoppingCart.getBookid()).getPrice();
+				}
+				
+				responseText = cartItemsPayment+","+cartItemsNum;
+				
+				out.print(responseText);
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+		
+		
 	}
 
 	/**

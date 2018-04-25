@@ -3,21 +3,27 @@ package com.bugs.web.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bugs.domain.Address;
+import com.bugs.domain.Book;
+import com.bugs.domain.Customer;
 import com.bugs.domain.order;
+import com.bugs.service.AddressService;
+import com.bugs.service.BookService;
 import com.bugs.service.OrderService;
 
-public class CustomerDeleteOrderServlet extends HttpServlet {
+public class ContinueBuyServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public CustomerDeleteOrderServlet() {
+	public ContinueBuyServlet() {
 		super();
 	}
 
@@ -42,33 +48,31 @@ public class CustomerDeleteOrderServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String action = request.getParameter("action");
-		if (action.equals("deid")) {
-			int orderId = Integer.parseInt(request.getParameter("orderId"));
-			OrderService orderService = new OrderService();
-			order order = new order();
-			order.setId(orderId);
-			try {
-				orderService.DeleteOrderItem(order);
-				response.sendRedirect("viewMyOrdersServlet");
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}else if (action.equals("batch")) {
-			String ids =  request.getParameter("ids");
-			String[] idArray= ids.split(",");
-			OrderService orderService = new OrderService();
-			//
-			try {
-				orderService.DeleteByBatchItem(idArray);
-				response.sendRedirect("viewMyOrdersServlet");
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
+		Customer customer = (Customer)request.getSession().getAttribute("customer");
+		int orderId = Integer.parseInt(request.getParameter("orderId"));
+		
+		order order = new order();
+		order.setId(orderId);
+		
+		OrderService orderService = new OrderService();
+		BookService bookService = new BookService();
+		AddressService addressService = new AddressService();
+		
+		order continueOrder;
+		try {
+			continueOrder = orderService.QueryOrderItemById(order);
+			List<Address> addresses = addressService.QueryAddressItemByCustomerId(customer);
+			Book toBuyBook = bookService.queryBookById(continueOrder.getBookid());
+			
+			request.getSession().setAttribute("toPaymentOrder", continueOrder);
+			request.getSession().setAttribute("addresses", addresses);
+			request.getSession().setAttribute("toBuyBook", toBuyBook);
+			response.sendRedirect("confirmOrder.jsp");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
 	}
 
 	/**

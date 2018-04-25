@@ -52,7 +52,7 @@ List<order> paidOrders = (List<order>)session.getAttribute("paidOrders");
 					<%} %>
 					</div>
 					<div class="stateinfo">
-						<a href="viewMyordersServlet">我的订单</a>
+						<a href="viewMyOrdersServlet">我的订单</a>
 					</div>
 					<div class="stateinfo">
 						<a href="importantpeople.jsp">书城会员</a>
@@ -117,6 +117,7 @@ List<order> paidOrders = (List<order>)session.getAttribute("paidOrders");
 								      
 								      <td>
 								        <a class="deleteLink" href="customerDeleteOrderServlet?action=deid&orderId=<%=toBePaidOrders.get(i).id %>">删除</a>
+								        <a class="deleteLink" href="continueBuyServlet?orderId=<%=toBePaidOrders.get(i).id %>">去支付</a>
 								      </td>    
 							    	</tr>
 							    <%} %>
@@ -155,7 +156,7 @@ List<order> paidOrders = (List<order>)session.getAttribute("paidOrders");
 								 </thead>
 							     <% for(int i=0;i<paidOrders.size();i++){ %>
 							    	<tr>
-							    	  <td><input type="checkbox"  class="select" value="<%=paidOrders.get(i).id %>"></td>
+							    	  <td><input type="checkbox"  class="selectOfAllOrder" value="<%=paidOrders.get(i).id %>"></td>
 								      <td scope="row"><%=paidOrders.get(i).ordernumber %></td>
 								      <td><p><%=paidOrderBooks.get(i).name %></p><img src="<%=paidOrderBooks.get(i).imgurl %>" width="100px" /></td>
 								      <td><%=paidOrders.get(i).num %></td>
