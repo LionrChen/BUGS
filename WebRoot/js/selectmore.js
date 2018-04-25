@@ -35,8 +35,7 @@ $(function(){
 					theFirst = false;
 				}else{
 					urlString += ","+$(this).val();
-				}
-						
+				}	
 			}
 				
 		})
