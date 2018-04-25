@@ -26,15 +26,15 @@ $(function(){
 	};
 	
 	$("#deletechecked").on("click",function(){
-		var urlString = 'customerDeleteOrderServlet?action=batch';
+		var urlString = 'customerDeleteOrderServlet?action=batch&ids=';
 		var theFirst = true;
 		$(".select").each(function(){
 			if($(this).is(':checked')){
 				if(theFirst){
-					urlString += "ids="+$(this).val();
+					urlString += $(this).val();
 					theFirst = false;
 				}else{
-					urlString += ",id="+$(this).val();	
+					urlString += ","+$(this).val();
 				}
 						
 			}

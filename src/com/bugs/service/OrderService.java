@@ -26,6 +26,15 @@ public class OrderService {
 			return false;
 		}
 	}
+
+	public  boolean DeleteByBatchItem(String[] ids)throws  SQLException {
+		int[] rowCount = orderDao.DeleteBybatch(ids);
+		if(rowCount.length == ids.length) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 	
 	public  boolean UpdateOrderItemNumById(order order) throws SQLException{
 		int rowCount = orderDao.updateOrderById(order);

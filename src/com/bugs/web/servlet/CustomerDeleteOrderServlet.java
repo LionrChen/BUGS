@@ -57,9 +57,18 @@ public class CustomerDeleteOrderServlet extends HttpServlet {
 			}
 		}else if (action.equals("batch")) {
 			String ids =  request.getParameter("ids");
-			//ids´¦Àí³ÉÊý×é 1
+			//idsï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1
 			String[] idArray= ids.split(",");
+			OrderService orderService = new OrderService();
 			//
+			try {
+				orderService.DeleteByBatchItem(idArray);
+				response.sendRedirect("viewMyOrdersServlet");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 		}
 	}
 
