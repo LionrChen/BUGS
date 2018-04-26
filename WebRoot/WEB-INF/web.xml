@@ -239,6 +239,69 @@
     <servlet-name>GetCartInfoServlet</servlet-name>
     <servlet-class>com.bugs.web.servlet.GetCartInfoServlet</servlet-class>
   </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>ViewMyCartServlet</servlet-name>
+    <servlet-class>com.bugs.web.servlet.ViewMyCartServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>CheckOutServlet</servlet-name>
+    <servlet-class>com.bugs.web.servlet.CheckOutServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>AddMessageServlet</servlet-name>
+    <servlet-class>com.bugs.web.servlet.AddMessageServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>ViewMyMessageServlet</servlet-name>
+    <servlet-class>com.bugs.web.servlet.ViewMyMessageServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>ReviewMessageServlet</servlet-name>
+    <servlet-class>com.bugs.web.servlet.ReviewMessageServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>DeleteMessageServlet</servlet-name>
+    <servlet-class>com.bugs.web.servlet.DeleteMessageServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>SearchBookByTypeServlet</servlet-name>
+    <servlet-class>com.bugs.web.servlet.SearchBookByTypeServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>SearchBookServlet</servlet-name>
+    <servlet-class>com.bugs.web.servlet.SearchBookServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>ViewAllMessageServlet</servlet-name>
+    <servlet-class>com.bugs.web.servlet.ViewAllMessageServlet</servlet-class>
+  </servlet>
+
+
+
+
+
+
+
+
+
 
 
 
@@ -447,6 +510,42 @@
   <servlet-mapping>
     <servlet-name>GetCartInfoServlet</servlet-name>
     <url-pattern>/getCartInfoServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ViewMyCartServlet</servlet-name>
+    <url-pattern>/viewMyCartServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CheckOutServlet</servlet-name>
+    <url-pattern>/checkOutServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AddMessageServlet</servlet-name>
+    <url-pattern>/addMessageServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ViewMyMessageServlet</servlet-name>
+    <url-pattern>/viewMyMessageServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ReviewMessageServlet</servlet-name>
+    <url-pattern>/reviewMessageServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeleteMessageServlet</servlet-name>
+    <url-pattern>/deleteMessageServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SearchBookByTypeServlet</servlet-name>
+    <url-pattern>/searchBookByTypeServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SearchBookServlet</servlet-name>
+    <url-pattern>/searchBookServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ViewAllMessageServlet</servlet-name>
+    <url-pattern>/viewAllMessageServlet</url-pattern>
   </servlet-mapping>
   
   

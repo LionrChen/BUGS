@@ -3,23 +3,23 @@ package com.bugs.web.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.bugs.domain.ShoppingCart;
-import com.bugs.domain.order;
-import com.bugs.service.OrderService;
-import com.bugs.service.ShoppingCartService;
+import com.bugs.domain.Customer;
+import com.bugs.domain.Message;
+import com.bugs.service.MessageService;
 
-public class CustomerDeleteShoppingCartItemServlet extends HttpServlet {
+public class ViewMyMessageServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public CustomerDeleteShoppingCartItemServlet() {
+	public ViewMyMessageServlet() {
 		super();
 	}
 
@@ -44,33 +44,17 @@ public class CustomerDeleteShoppingCartItemServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String action = request.getParameter("action");
-		ShoppingCartService shoppingCartService = new ShoppingCartService();
-		if (action.equals("deid")) {
-			int shoppingCartItemId = Integer.parseInt(request.getParameter("shoppingCartItemId"));
-			
-			ShoppingCart shoppingCart = new ShoppingCart();
-			shoppingCart.setId(shoppingCartItemId);
-			
-			try {
-				shoppingCartService.DeleteShoppingCartItem(shoppingCart);
-				response.sendRedirect("viewMyCartServlet");
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}else if (action.equals("batch")) {
-			String ids =  request.getParameter("ids");
-			String[] idArray= ids.split(",");
-			//
-			try {
-				shoppingCartService.DeleteShoppingCartItemByBatch(idArray);
-				response.sendRedirect("viewMyCartServlet");
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
+		Customer customer = (Customer)request.getSession().getAttribute("customer");
+		
+		MessageService messageService = new MessageService();
+		
+		try {
+			List<Message> messages = messageService.QueryMessagesByCustomer(customer);
+			request.getSession().setAttribute("messages", messages);
+			response.sendRedirect("viewMessage.jsp");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

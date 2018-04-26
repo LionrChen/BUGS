@@ -106,122 +106,35 @@ List<order> paidOrders = (List<order>)session.getAttribute("paidOrders");
 					</p>
 				</div>
 			</div>
-			<div class="card rounded-0 border-left-0 border-right-0" style="">
-				<div class="card-body">
-					<h5 class="card-title bg-primary"><img src="images/cart.svg"width="20px" />我的购物车</h5>
-						<table class="table">
-						  <tbody>
-						  	<thead>
-							    <tr>
-							      <th scope="col" class="w-25"></th>
-							      <th scope="col" class="w-25"></th>
-							      <th scope="col">数量</th>
-							      <th scope="col">合计</th>
-							      <th scope="col"></th>
-							    </tr>
-							 </thead>
-						    <tr>
-						      <% for(int i=0;i<shoppingCarts.size();i++){ %>
-							 	<tr>
-							      <td scope="row"><%=books.get(i).name %></td>
-							      <td><img src="<%=books.get(i).imgurl %>" width="100px" /></td>
-							      <td><%=shoppingCarts.get(i).num %></td>
-							      <td><%=books.get(i).price %></td>
-							      <td><input type="checkbox"  /></td>
-							    </tr>
-							 <%} %>
-						    </tr>
-						    
-						  </tbody>
-						</table>
+			<nav aria-label="breadcrumb">
+			  <ol class="breadcrumb">
+			    <li class="breadcrumb-item" aria-current="page">
+			    	<a href="viewMyCartServlet">
+						<img src="images/cart.svg"width="20px" />我的购物车
+					</a>
+				</li>
+			  </ol>
+			</nav>
+			<nav aria-label="breadcrumb">
+			  <ol class="breadcrumb">
+			    <li class="breadcrumb-item" aria-current="page">
+			    	<a href="viewMyOrdersServlet">
+					<img src="images/order.svg" width="20px"/>我的订单
+					</a>
+				</li>
+			  </ol>
+			</nav>
+			<nav aria-label="breadcrumb">
+			  <ol class="breadcrumb">
+			    <li class="breadcrumb-item" aria-current="page">
+			    	<a href="viewMyMessageServlet">
+					<img src="images/order.svg" width="20px"/>我的留言
+					</a>
 			    </div>
-			</div>
-			<div class="card rounded-0 border-left-0 border-right-0" style="">
-				<div class="card-body">
-					<h5 class="card-title bg-primary"><img src="images/order.svg" width="20px"/>待支付订单</h5>
-					<table class="table">
-						  <tbody>
-						  	<thead>
-							    <tr>
-							      <th scope="col">订单号</th>
-							      <th scope="col">商品</th>
-							      <th scope="col">数量</th>
-							      <th scope="col">合计</th>
-							      <th scope="col">是否支付</th>
-							      <th scope="col">地址</th>
-							      <th scope="col"></th>
-							    </tr>
-							 </thead>
-						    <% for(int i=0;i<toBePaidOrders.size();i++){ %>
-						    <tr>
-							      <td scope="row"><%=toBePaidOrders.get(i).ordernumber %></td>
-							      <td><p><%=toBePaidOrderBooks.get(i).name %></p><img src="<%=toBePaidOrderBooks.get(i).imgurl %>" width="100px" /></td>
-							      <td><%=toBePaidOrders.get(i).num %></td>
-							      <td><%=toBePaidOrders.get(i).payment %></td>
-							      <td>
-							      	<%if(toBePaidOrders.get(i).paymentState == 0){%>
-							      		未支付
-							      	<%}else{ %>
-							      		已支付
-							      	<%}%>
-							      </td>
-							      <td>
-							      	<%if(toBePaidOrders.get(i).position == 0){%>
-							      		无地址
-							      	<%}else{ %>
-							      		<%=toBePaidOrders.get(i).position %>
-							      	<%}%>
-							      </td>
-							      <td><input type="checkbox"></td>    
-						    	</tr>
-						    <%} %>
-						  </tbody>
-						</table>
-			    </div>
-			</div>
-			<div class="card rounded-0 border-left-0 border-right-0" style="">
-				<div class="card-body">
-					<h5 class="card-title bg-primary"><img src="images/order_time.svg" width="20px"/>所有订单</h5>
-					<table class="table">
-						  <tbody>
-						  	<thead>
-							    <tr>
-							      <th scope="col">订单号</th>
-							      <th scope="col">商品</th>
-							      <th scope="col">数量</th>
-							      <th scope="col">合计</th>
-							      <th scope="col">是否支付</th>
-							      <th scope="col">地址</th>
-							      <th scope="col"></th>
-							    </tr>
-							 </thead>
-						     <% for(int i=0;i<paidOrders.size();i++){ %>
-						    	<tr>
-							      <td scope="row"><%=paidOrders.get(i).ordernumber %></td>
-							      <td><p><%=paidOrderBooks.get(i).name %></p><img src="<%=paidOrderBooks.get(i).imgurl %>" width="100px" /></td>
-							      <td><%=paidOrders.get(i).num %></td>
-							      <td><%=paidOrders.get(i).payment %></td>
-							      <td>
-							      	<%if(paidOrders.get(i).paymentState == 0){%>
-							      		未支付
-							      	<%}else{ %>
-							      		已支付
-							      	<%}%>
-							      </td>
-							      <td>
-							      	<%if(paidOrders.get(i).position == 0){%>
-							      		无地址
-							      	<%}else{ %>
-							      		<%=paidOrders.get(i).position %>
-							      	<%}%>
-							      </td>
-							      <td><input type="checkbox"></td>
-						    </tr>
-						   <%} %>
-						  </tbody>
-						</table>
-			    </div>
-			</div>
+				</li>
+			  </ol>
+			</nav>
+			
 		</div>
   </body>
   <script src="js/bootstrap/js/jquery.js"></script>

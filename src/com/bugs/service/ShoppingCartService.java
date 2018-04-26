@@ -29,6 +29,15 @@ public class ShoppingCartService {
 		}
 	}
 	
+	public boolean DeleteShoppingCartItemByBatch(String[] ids) throws SQLException {
+		int[] rowCount = cartDao.DeleteBybatch(ids);
+		if(rowCount.length>0){
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
 	public  boolean UpdateShoppingCartItemNumById(ShoppingCart shoppingCart) throws SQLException{
 		int rowCount = cartDao.UpdateShoppingCart(shoppingCart.id, shoppingCart.num);
 		if(rowCount>0){
@@ -37,10 +46,15 @@ public class ShoppingCartService {
 			return false;
 		}
 	}
+	
+	public ShoppingCart QueryShoppingCartItemById(int id) throws SQLException {
+		return cartDao.queryShoppingCartById(id);
+	}
+	
 	public List<ShoppingCart> QueryShoppingCartItem() throws SQLException {
 		return cartDao.queryShoppingCarts();
 	}
 	public List<ShoppingCart> QueryAllShoppingCartItemByCustomerId(int id) throws SQLException {
-		return cartDao.queryShoppingCartsById(id);
+		return cartDao.queryShoppingCartsByCustomerId(id);
 	}
 }

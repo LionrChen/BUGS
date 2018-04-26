@@ -9,17 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.bugs.domain.ShoppingCart;
-import com.bugs.domain.order;
-import com.bugs.service.OrderService;
-import com.bugs.service.ShoppingCartService;
+import com.bugs.service.MessageService;
 
-public class CustomerDeleteShoppingCartItemServlet extends HttpServlet {
+public class DeleteMessageServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public CustomerDeleteShoppingCartItemServlet() {
+	public DeleteMessageServlet() {
 		super();
 	}
 
@@ -44,33 +41,16 @@ public class CustomerDeleteShoppingCartItemServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String action = request.getParameter("action");
-		ShoppingCartService shoppingCartService = new ShoppingCartService();
-		if (action.equals("deid")) {
-			int shoppingCartItemId = Integer.parseInt(request.getParameter("shoppingCartItemId"));
-			
-			ShoppingCart shoppingCart = new ShoppingCart();
-			shoppingCart.setId(shoppingCartItemId);
-			
-			try {
-				shoppingCartService.DeleteShoppingCartItem(shoppingCart);
-				response.sendRedirect("viewMyCartServlet");
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}else if (action.equals("batch")) {
-			String ids =  request.getParameter("ids");
-			String[] idArray= ids.split(",");
-			//
-			try {
-				shoppingCartService.DeleteShoppingCartItemByBatch(idArray);
-				response.sendRedirect("viewMyCartServlet");
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
+		int messageId = Integer.parseInt(request.getParameter("messageId"));
+		
+		MessageService messageService = new MessageService();
+		
+		try {
+			messageService.DeleteMessage(messageService.QueryMessageById(messageId));
+			response.sendRedirect("viewMyMessageServlet");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

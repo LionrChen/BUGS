@@ -1,4 +1,4 @@
-<%@page import="com.bugs.domain.Book"%>
+<%@page import="com.bugs.domain.Message"%>
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%
 String path = request.getContextPath();
@@ -9,7 +9,6 @@ if(session.getAttribute("customer")==null){
 }else{
 	login=true;
 }
-Book book = (Book)session.getAttribute("book");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -17,7 +16,7 @@ Book book = (Book)session.getAttribute("book");
   <head>
     <base href="<%=basePath%>">
     
-    <title>${book.name }</title>
+    <title>联系管理员</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -25,7 +24,8 @@ Book book = (Book)session.getAttribute("book");
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 	<link href="js/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/bookDetail.css" rel="stylesheet">
+	<link href="css/header.css" rel="stylesheet">
+	<link href="css/contactAdmin.css" rel="stylesheet">
 
   </head>
   
@@ -58,42 +58,26 @@ Book book = (Book)session.getAttribute("book");
 				</div>
 			</div>
 		</div>
-		</header>
-		<div class="container">
-			<div class="row content p-3">
-				<div class="col-5">
-					<div class="pt-3">
-						<img src="${book.imgurl }"  class="img-fluid"/>
-					</div>
-				</div>
-				<div class="col-7 bookInfo pt-5">
-					<h5>${book.name }</h5>
-					<p>${book.description }</p>
-					<p>分类:<span>${book.category }</span></p>
-					<p>剩余库存:<span>${book.pnum }</span></p>
-					<p>价格:<span>${book.price }￥</span></p>
-					
-					<form action="directPurchaseServlet" method="post">
-						<input style="display: none;" value="${book.id }" name="bookId" id="bookId"/>
-						<label for="pnum">数量:</label>
-						<input type="text" value="1" id="pnum" name="pnum"/>
-						<p>
-							<button type="submit" class="btn btn-primary">立刻购买</button>
-							<a  class="btn bg-white border-primary"  id ="addToCart">加入购物车</a>
-						</p>
-						
-					</form>
-					
-				</div>
-				
+	</header>
+	<div class="container">
+			<div class="content p-4">
+				<h6 class="bg-primary title"><img alt="" src="images/message.svg" width="20px">留言</h6>
+				<form action="addMessageServlet" method="post" class="p-3">
+				  <div class="form-group">
+				    <label for="title">标题</label>
+				    <input type="text" class="form-control" id="title" value="${message.title }"  placeholder="标题不超过40个字符" name="title">
+				  </div>
+				 
+				  <div class="form-group">
+				    <label for="content">留言内容</label>
+				    <textarea class="form-control" id="content" rows="4"  name="content">${message.content }</textarea>
+				  </div>
+				  
+			  	  <button class="btn btn-primary" type="submit">提交</button>
+			  	  <a class="btn btn-primary" id="back" href="indexServlet">返回</a>
+				  
+				</form>
 			</div>
-			
 		</div>
   </body>
-  <script src="js/bootstrap/js/jquery.js"></script>
-    <!-- popper.js-->
-    <script src="js/bootstrap/js/popper.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap/js/bootstrap.js"></script>
-    <script src="js/bookDetail.js"></script>
 </html>

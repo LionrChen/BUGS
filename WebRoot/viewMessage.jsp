@@ -1,5 +1,6 @@
-<%@page import="com.bugs.domain.Book"%>
+<%@page import="com.bugs.domain.Message"%>
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="p" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -9,7 +10,6 @@ if(session.getAttribute("customer")==null){
 }else{
 	login=true;
 }
-Book book = (Book)session.getAttribute("book");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -17,7 +17,7 @@ Book book = (Book)session.getAttribute("book");
   <head>
     <base href="<%=basePath%>">
     
-    <title>${book.name }</title>
+    <title>我的留言</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -25,7 +25,8 @@ Book book = (Book)session.getAttribute("book");
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 	<link href="js/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/bookDetail.css" rel="stylesheet">
+	<link href="css/header.css" rel="stylesheet">
+	<link href="css/contactAdmin.css" rel="stylesheet">
 
   </head>
   
@@ -58,42 +59,25 @@ Book book = (Book)session.getAttribute("book");
 				</div>
 			</div>
 		</div>
-		</header>
-		<div class="container">
-			<div class="row content p-3">
-				<div class="col-5">
-					<div class="pt-3">
-						<img src="${book.imgurl }"  class="img-fluid"/>
+	</header>
+	<div class="container">
+			<div class="content p-4">
+				<nav aria-label="breadcrumb">
+				  <ol class="breadcrumb">
+				    <li class="breadcrumb-item active" aria-current="page">
+				    	我的留言
+					</li>
+				  </ol>
+				</nav>
+				<div class="list-group list-group-flush">
+				<p:forEach items="${messages }" var="message" varStatus="vs">
+					<div class="list-group-item">
+						<p><a href="reviewMessageServlet?messageId=${message.id }">${message.title }</a><a href="deleteMessageServlet?messageId=${message.id }" class="float-right">删除</a></p>
+						<p>${message.content }</p>
 					</div>
+				</p:forEach>
 				</div>
-				<div class="col-7 bookInfo pt-5">
-					<h5>${book.name }</h5>
-					<p>${book.description }</p>
-					<p>分类:<span>${book.category }</span></p>
-					<p>剩余库存:<span>${book.pnum }</span></p>
-					<p>价格:<span>${book.price }￥</span></p>
-					
-					<form action="directPurchaseServlet" method="post">
-						<input style="display: none;" value="${book.id }" name="bookId" id="bookId"/>
-						<label for="pnum">数量:</label>
-						<input type="text" value="1" id="pnum" name="pnum"/>
-						<p>
-							<button type="submit" class="btn btn-primary">立刻购买</button>
-							<a  class="btn bg-white border-primary"  id ="addToCart">加入购物车</a>
-						</p>
-						
-					</form>
-					
-				</div>
-				
 			</div>
-			
 		</div>
   </body>
-  <script src="js/bootstrap/js/jquery.js"></script>
-    <!-- popper.js-->
-    <script src="js/bootstrap/js/popper.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap/js/bootstrap.js"></script>
-    <script src="js/bookDetail.js"></script>
 </html>

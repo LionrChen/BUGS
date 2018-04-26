@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import com.bugs.domain.Address;
@@ -35,14 +36,32 @@ public class CartDao {
 		return rowCount;
 	}
 	
+	public ShoppingCart queryShoppingCartById(int id) throws SQLException {
+		QueryRunner queryRunner = new QueryRunner(DBUtils.getDataSource());
+		String sql = "select * from shoppingcart where id=?";
+		return queryRunner.query(sql, new BeanHandler<ShoppingCart>(ShoppingCart.class),id);
+	}
+	
 	public List<ShoppingCart> queryShoppingCarts() throws SQLException {
 		QueryRunner queryRunner = new QueryRunner(DBUtils.getDataSource());
 		String sql = "select * from shoppingcart";
 		return queryRunner.query(sql, new BeanListHandler<ShoppingCart>(ShoppingCart.class));
 	}
-	public List<ShoppingCart> queryShoppingCartsById(int id) throws SQLException {
+	public List<ShoppingCart> queryShoppingCartsByCustomerId(int id) throws SQLException {
 		QueryRunner queryRunner = new QueryRunner(DBUtils.getDataSource());
 		String sql = "select * from shoppingcart where userid=?";
 		return queryRunner.query(sql, new BeanListHandler<ShoppingCart>(ShoppingCart.class),id);
+	}
+	public int[] DeleteBybatch(String[] ids) throws SQLException {
+		QueryRunner queryRunner = new QueryRunner(DBUtils.getDataSource());
+		// ÅúÁ¿²Ù×÷
+		String sql = "delete from shoppingcart where  id = ?";
+		Object[][] params = new Object[ids.length][];
+		for (int i = 0; i < params.length; i++) {
+			params[i] = new Object[] { ids[i] };
+		}
+		int[] rowCount = queryRunner.batch(sql, params);
+		return rowCount;
+
 	}
 }

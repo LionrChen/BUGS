@@ -55,7 +55,7 @@ String consum = String.valueOf(session.getAttribute("consum"));
 						<a href="importantpeople.jsp">书城会员</a>
 					</div>
 					<div class="stateinfo">
-						<a href="communicateadmin.jsp">联系管理员</a>
+						<a href="contactAdmin.jsp">联系管理员</a>
 					</div>
 				</div>
 			</div>

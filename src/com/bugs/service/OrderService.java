@@ -4,8 +4,10 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.bugs.dao.OrderDao;
+import com.bugs.domain.Book;
 import com.bugs.domain.Customer;
 import com.bugs.domain.order;
+import com.bugs.util.ProductID;
 
 public class OrderService {
 	OrderDao orderDao = new OrderDao();
@@ -68,7 +70,16 @@ public class OrderService {
 	public List<order> QueryOrdersItemByCustomerId(Customer customer) throws SQLException {
 		return orderDao.queryOrdersByCustomerId(customer.getId());
 	}
-//	public List<order> QueryOrdersItemByCustomerIdAndPaymentstate(Customer customer,String paymentstate) throws SQLException {
-//		return orderDao.queryOrdersByCustomerId(customer.getId(),paymentstate);
-//	}
+
+	
+	public order creatOrder(Customer customer,Book book,int pnum) throws SQLException {
+		order order = new order();
+		order.setOrdernumber(ProductID.getOrderIdByTime());
+		order.setUserid(customer.id);
+		order.setBookid(book.id);
+		order.setNum(pnum);
+		order.setPayment(pnum*book.price);
+		orderDao.InsertOrder(order);
+		return orderDao.queryOrderByOrdernumber(order.getOrdernumber());
+	}
 }

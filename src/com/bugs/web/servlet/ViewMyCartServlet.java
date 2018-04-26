@@ -1,7 +1,9 @@
 package com.bugs.web.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -9,15 +11,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bugs.domain.Book;
+import com.bugs.domain.Customer;
 import com.bugs.domain.ShoppingCart;
+import com.bugs.service.BookService;
 import com.bugs.service.ShoppingCartService;
 
-public class QueryShoppingCartItembyCustomerId extends HttpServlet {
+public class ViewMyCartServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public QueryShoppingCartItembyCustomerId() {
+	public ViewMyCartServlet() {
 		super();
 	}
 
@@ -41,16 +46,34 @@ public class QueryShoppingCartItembyCustomerId extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int id = Integer.parseInt(request.getParameter("id"));
-		ShoppingCartService shoppingCartService = new ShoppingCartService();
-		try {
-			List<ShoppingCart> shoppingCartList = shoppingCartService.QueryAllShoppingCartItemByCustomerId(id);
-			request.setAttribute("shoppingCartList", shoppingCartList);
-			request.getSession().setAttribute("shoppingCartList", shoppingCartList);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+		Customer customer = (Customer)request.getSession().getAttribute("customer");
+		
+		if (customer == null) {
+			response.sendRedirect("userLogin.jsp");
+		}else {
+			
+			ShoppingCartService shoppingCartService = new ShoppingCartService();
+			BookService bookService = new BookService();
+			
+			try {
+				List<ShoppingCart> shoppingCartList = shoppingCartService.QueryAllShoppingCartItemByCustomerId(customer.getId());
+				
+				List<Book> books = new ArrayList<Book>();
+				
+				for (ShoppingCart shoppingCart : shoppingCartList) {
+					books.add(bookService.queryBookById(shoppingCart.getBookid()));
+				}
+				
+				request.getSession().setAttribute("shoppingCarts", shoppingCartList);
+				request.getSession().setAttribute("books", books);
+				response.sendRedirect("shoppingCart.jsp");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+		
 	}
 
 	/**

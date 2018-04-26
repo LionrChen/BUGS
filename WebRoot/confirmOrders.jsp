@@ -1,3 +1,5 @@
+<%@page import="org.apache.taglibs.standard.tag.el.core.ForEachTag"%>
+<%@page import="org.apache.taglibs.standard.tag.common.core.ForEachSupport"%>
 <%@page import="com.bugs.domain.Address"%>
 <%@page import="com.bugs.domain.Book"%>
 <%@page import="com.bugs.domain.order"%>
@@ -13,8 +15,22 @@ if(session.getAttribute("customer")==null){
 	login=true;
 }
 List<Address> addresses = (List<Address>)session.getAttribute("addresses");
-order order = (order)session.getAttribute("newOrder");
-Book toBuyBook = (Book)session.getAttribute("toBuyBook");
+List<order> orders = (List<order>)session.getAttribute("orders");
+List<Book> books = (List<Book>)session.getAttribute("books");
+
+boolean theFirst = true;
+String ordernumbers = "";
+double payment = 0;
+
+for (order order:orders){
+	if(theFirst){
+		ordernumbers += order.getOrdernumber();
+		theFirst = false;
+	}else{
+		ordernumbers += ","+order.getOrdernumber();
+	}
+	payment +=order.getPayment();
+}
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -68,17 +84,19 @@ Book toBuyBook = (Book)session.getAttribute("toBuyBook");
 		<div class="container">
 			<div class="content p-3">
 				<h5 class=" bg-primary"><img src="images/order.svg"  width="20px"/>确认订单</h5>
-				<div class="orderInfo">
-					<div>
-						<img src="${toBuyBook.imgurl }" />
-						<p>${toBuyBook.name }</p>
-						<p>价格:<span>${toBuyBook.price }</span>￥</p>
-						<p>购买数量:<span>${toPaymentOrder.num }</span></p>
-						<p>总价:<span>${toPaymentOrder.payment }</span>￥</p>
+				<%for(int i=0;i<orders.size();i++) {%>
+					<div class="orderInfo">
+						<div>
+							<img src="<%=books.get(i).getImgurl() %>" />
+							<p><%=books.get(i).getName() %></p>
+							<p>价格:<span><%=books.get(i).getPrice() %></span>￥</p>
+							<p>购买数量:<span><%=orders.get(i).getNum() %></span></p>
+							<p>总价:<span><%=orders.get(i).getPayment() %></span>￥</p>
+						</div>
 					</div>
-				</div>
+				<%} %>
 				<div class="submitOrder">
-					<form action="confirmPaymentServlet" method="post">
+					<form action="confirmPaymentServlet?action=moreOrder" method="post">
 						<p:forEach items='${addresses }' var='address' varStatus='vs'>
 							<div class="addresses">
 								<input type="radio" value="${address.id }" name="addressId" checked=True />
@@ -91,8 +109,8 @@ Book toBuyBook = (Book)session.getAttribute("toBuyBook");
 							</div>
 						</p:forEach>
 						
-						<input value="${toPaymentOrder.ordernumber }" style="display: none;" name="ordernumber"/>
-						<p>共需支付:<span>${toPaymentOrder.payment }</span>￥</p>
+						<input value="<%=ordernumbers %>" style="display: none;" name="ordernumber"/>
+						<p>共需支付:<span><%=payment %></span>￥</p>
 						<p>支付方式:</p>
 						<p>
 							<label for="payfun">钱包支付</label>

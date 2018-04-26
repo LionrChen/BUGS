@@ -3,6 +3,8 @@ package com.bugs.web.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -45,35 +47,73 @@ public class ConfirmPaymentServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		Customer customer = (Customer)request.getSession().getAttribute("customer");
-		String ordernumber = request.getParameter("ordernumber");
+		
 		int addressId = Integer.parseInt(request.getParameter("addressId"));
 		String payfun = request.getParameter("payfun");
-	
+		String action = request.getParameter("action");
+		
 		OrderService orderService = new OrderService();
 		WalletService walletService = new WalletService();
 		
-		try {
-			order needPayOrder = orderService.QueryOrderItemByOrderNumber(ordernumber);
-			if (payfun.equals("wallet")) {
-				if(walletService.pay(customer, needPayOrder.getPayment())){
-					needPayOrder.setPaymentState(1);
-					needPayOrder.setPosition(addressId);
-					orderService.UpdateOrderItemById(needPayOrder);
-					String payInfo = "支付成功！";
-					request.getSession().setAttribute("payInfo", payInfo);
-				}else {
-					String payInfo = "支付失败！";
-					request.getSession().setAttribute("payInfo", payInfo);
-				}
-			}
-			double consum = needPayOrder.payment;
-			request.getSession().setAttribute("consum", consum);
-			response.sendRedirect("successPay.jsp");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		if (action.equals("moreOrder")) {
+			String numbers = request.getParameter("ordernumber");
+			String[] ordernumbers = numbers.split(",");
 			
-			e.printStackTrace();
-		}
+			List<order> needOrders = new ArrayList<order>();
+			double consum = 0;
+			
+			try {
+				if (payfun.equals("wallet")) {
+					for (String ordernumber : ordernumbers) {
+						order needPayOrder = orderService.QueryOrderItemByOrderNumber(ordernumber);
+						needOrders.add(needPayOrder);
+						consum += needPayOrder.getPayment();
+						if(walletService.pay(customer, needPayOrder.getPayment())){
+							needPayOrder.setPaymentState(1);
+							needPayOrder.setPosition(addressId);
+							orderService.UpdateOrderItemById(needPayOrder);
+							String payInfo = "支付成功！";
+							request.getSession().setAttribute("payInfo", payInfo);
+						}else {
+							String payInfo = "支付失败！";
+							request.getSession().setAttribute("payInfo", payInfo);
+						}
+						
+					}
+				}
+				
+				request.getSession().setAttribute("consum", consum);
+				response.sendRedirect("successPay.jsp");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				
+				e.printStackTrace();
+			}
+		}else {
+			try {
+				String ordernumber = request.getParameter("ordernumber");
+				order needPayOrder = orderService.QueryOrderItemByOrderNumber(ordernumber);
+				if (payfun.equals("wallet")) {
+					if(walletService.pay(customer, needPayOrder.getPayment())){
+						needPayOrder.setPaymentState(1);
+						needPayOrder.setPosition(addressId);
+						orderService.UpdateOrderItemById(needPayOrder);
+						String payInfo = "支付成功！";
+						request.getSession().setAttribute("payInfo", payInfo);
+					}else {
+						String payInfo = "支付失败！";
+						request.getSession().setAttribute("payInfo", payInfo);
+					}
+				}
+				double consum = needPayOrder.payment;
+				request.getSession().setAttribute("consum", consum);
+				response.sendRedirect("successPay.jsp");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				
+				e.printStackTrace();
+			}
+		}		
 	}
 
 	/**

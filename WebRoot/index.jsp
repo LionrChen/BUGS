@@ -54,7 +54,7 @@ if(session.getAttribute("customer")==null){
 						<a href="importantpeople.jsp">书城会员</a>
 					</div>
 					<div class="stateinfo">
-						<a href="communicateadmin.jsp">联系管理员</a>
+						<a href="contactAdmin.jsp">联系管理员</a>
 					</div>
 				</div>
 			</div>
@@ -74,14 +74,16 @@ if(session.getAttribute("customer")==null){
 			<div class="nav_bin">
 				<div class="nav">
 					<a href="#">&nbsp;&nbsp;&nbsp;&nbsp;图书分类</a>
-					<a href="#">书城首页</a>
-					<a href="#">精品推荐</a>
-					<a href="#">特价书籍</a>
-					<a href="#">热销排行</a>
+					<a href="indexServlet">书城首页</a>
+					<a href="javascript:;">精品推荐</a>
+					<a href="javascript:;">特价书籍</a>
+					<a href="javascript:;">热销排行</a>
 				</div>
 				<div class="search">
-					<input type="text" ></input>
-					<img src="images/search_icon.png" width="24px" />
+				<form action="searchBookServlet?action=sname" method="post">
+					<input type="text"  name="name"></input>
+					<button type="submit"><img src="images/search_icon.png" width="24px" /></button>
+				</form>
 				</div>
 				
 			</div>
@@ -89,17 +91,16 @@ if(session.getAttribute("customer")==null){
 		<section class="content_section" id="content_section">
 			<div class="content_bin">
 				<div class="classify_nav">
-					<p><a href="#">小说</a></p>
-					<p><a href="#">文艺</a></p>
-					<p><a href="#">生活</a></p>
-					<p><a href="#">社会科学</a></p>
-					<p><a href="#">人文</a></p>
-					<p><a href="#">励志</a></p>
-					<p><a href="#">管理</a></p>
-					<p><a href="#">科学</a></p>
-					<p><a href="#">教育</a></p>
-					<p><a href="#">工具书</a></p>
-					<p><a href="#">更多</a></p>
+					<p><a href="searchBookByTypeServlet?type=小说">小说</a></p>
+					<p><a href="searchBookByTypeServlet?type=文艺">文艺</a></p>
+					<p><a href="searchBookByTypeServlet?type=生活">生活</a></p>
+					<p><a href="searchBookByTypeServlet?type=社会科学">社会科学</a></p>
+					<p><a href="searchBookByTypeServlet?type=人文">人文</a></p>
+					<p><a href="searchBookByTypeServlet?type=励志">励志</a></p>
+					<p><a href="searchBookByTypeServlet?type=管理">管理</a></p>
+					<p><a href="searchBookByTypeServlet?type=科学">科学</a></p>
+					<p><a href="searchBookByTypeServlet?type=教育">教育</a></p>
+					<p><a href="searchBookByTypeServlet?type=工具书">工具书</a></p>
 				</div>
 				<div class="banner">
 					<div class="imgs">
@@ -138,13 +139,13 @@ if(session.getAttribute("customer")==null){
 					<div class="container_list clearfix">
 						<h1>每日推荐</h1>
 						<div class="book_list clearfix" id="recommendbook">
-							<%-- <p:forEach items="${recommendbooklist }" var="book" varStatus="vs">
+							<p:forEach items="${recommendbooklist }" var="book" varStatus="vs">
 								<div class="books">
 									<img src="${book.imgurl }" />
 									<p>${book.name }</p>
 									<p>￥${book.price }</p>
 								</div>
-							</p:forEach> --%>
+							</p:forEach>
 						</div>
 					</div>
 					<div class="container_list clearfix">
@@ -268,19 +269,6 @@ if(session.getAttribute("customer")==null){
 
 			window.onload=function(){
 				setBgColor();
-				var xhr = getXMLHttpRequest();
-				xhr.onreadystatechange = function() {
-					//xhr.readyState==4：表示接收到了完整的响应体
-					if (xhr.readyState == 4) {
-						//是否正确响应
-						if (xhr.status = 200) {
-							var result = xhr.responseText;
-							document.getElementById("recommendbook").innerHTML+="<p:forEach items='${recommendbooklist }' var='book' varStatus='vs'><div class='books'><img src='${book.imgurl }' /><a href='bookDetailServlet?bookId=${book.id }'><p>${book.name }</p><p>￥${book.price }</p></a></div></p:forEach>";
-						}
-					}
-				};
-				xhr.open("get", "getRecommendBookServlet");
-				xhr.send();
 			};
 			
 		</script>

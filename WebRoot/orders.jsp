@@ -68,7 +68,12 @@ List<order> paidOrders = (List<order>)session.getAttribute("paidOrders");
 			<div class="content p-3">
 			<div class="card rounded-0 border-left-0 border-right-0" style="">
 					<div class="card-body">
-						<h5 class="card-title bg-primary"><img src="images/order.svg" width="20px"/>待支付订单</h5>
+						<nav aria-label="breadcrumb">
+						  <ol class="breadcrumb">
+						    <li class="breadcrumb-item active" aria-current="page"><img src="images/order.svg" width="20px"/>待支付订单</li>
+						  </ol>
+						</nav>
+						
 						<table class="table">
 							  <tbody>
 							  	<thead>
@@ -127,7 +132,11 @@ List<order> paidOrders = (List<order>)session.getAttribute("paidOrders");
 				</div>
 				<div class="card rounded-0 border-left-0 border-right-0" style="">
 					<div class="card-body">
-						<h5 class="card-title bg-primary"><img src="images/order_time.svg" width="20px"/>所有订单</h5>
+						<nav aria-label="breadcrumb">
+						  <ol class="breadcrumb">
+						    <li class="breadcrumb-item active" aria-current="page"><img src="images/order.svg" width="20px"/>所有订单</li>
+						  </ol>
+						</nav>
 						<table class="table">
 							  <tbody>
 							  	<thead>

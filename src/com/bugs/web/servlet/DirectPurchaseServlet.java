@@ -52,10 +52,11 @@ public class DirectPurchaseServlet extends HttpServlet {
 		Customer customer = (Customer)request.getSession().getAttribute("customer");
 		String bookid = request.getParameter("bookId");
 		int pnum = Integer.parseInt(request.getParameter("pnum"));
+		
 		AddressService addressService = new AddressService();
 		BookService bookService = new BookService();
 		OrderService orderService = new OrderService();
-		order order = new order();
+
 		if (customer == null) {
 			response.sendRedirect("userLogin.jsp");
 		}else {
@@ -63,14 +64,7 @@ public class DirectPurchaseServlet extends HttpServlet {
 				List<Address> addresses = addressService.QueryAddressItemByCustomerId(customer);
 				Book toBuyBook = bookService.queryBookById(bookid);
 				
-				order.setOrdernumber(ProductID.getOrderIdByTime());
-				order.setUserid(customer.id);
-				order.setBookid(toBuyBook.id);
-				order.setNum(pnum);
-				order.setPayment(pnum*toBuyBook.price);
-				orderService.InsertOrderItem(order);
-				
-				order newOrder = orderService.QueryOrderItemByOrderNumber(order.ordernumber);
+				order newOrder = orderService.creatOrder(customer, toBuyBook, pnum);
 				
 				request.getSession().setAttribute("toPaymentOrder", newOrder);
 				request.getSession().setAttribute("addresses", addresses);

@@ -126,8 +126,12 @@
 					</span>
 					<span id="nav">
 						<p id="nav_p">主页推荐</p>
-						<p id="nav_p"><a href="#" target="rightContent">精品推荐</a></p>
-						<p id="nav_p"><a href="#" target="rightContent">热销推荐</a></p>
+						<p id="nav_p"><a href="javascript:;" target="rightContent">精品推荐</a></p>
+						<p id="nav_p"><a href="javascript:;" target="rightContent">热销推荐</a></p>
+					</span>
+					<span id="nav">
+						<p id="nav_p">留言</p>
+						<p id="nav_p"><a href="${pageContext.request.contextPath}/viewAllMessageServlet" target="rightContent">所有留言</a></p>
 					</span>
 				</div>
 			</div>
